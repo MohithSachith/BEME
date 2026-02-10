@@ -6,8 +6,11 @@
 ### Dashboard
 ![Dashboard](screenshots/dashboard.png)
 
-### BEME.PRO – Discipline Mode
-![BEME.PRO](screenshots/bemepro.png)
+### Analytics
+![Analytics](screenshots/analytics.png)
 
-### Alarm & Enforcement
-![Alarm](screenshots/alarm.png)
+### Notes / Journal
+![Notes](screenshots/note.png)
+
+### Time / Focus
+![Time](screenshots/time.png)
