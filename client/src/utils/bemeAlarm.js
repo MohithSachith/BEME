@@ -1,12 +1,16 @@
+let audio = null;
+
 export function triggerBemeAlarm() {
-  // play alarm sound
-  const audio = new Audio("/alarm.mp3");
-  audio.loop = true;
+  if (!audio) {
+    audio = new Audio("/alarm.mp3");
+    audio.loop = true;
+  }
   audio.play();
+}
 
-  // force navigation
-  window.location.href = "/bemepro";
-
-  // stop alarm after 30s safety
-  setTimeout(() => audio.pause(), 30000);
+export function stopBemeAlarm() {
+  if (audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
 }
