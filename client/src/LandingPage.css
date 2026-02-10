@@ -1,0 +1,177 @@
+/* --- RESET AND WRAPPER --- */
+.lp-wrapper.dark-setup {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: #020617;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+}
+
+.lp-canvas-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.lp-content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- HEADER --- */
+.lp-header-minimal {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.lp-header-minimal .logo {
+  font-size: 4rem;
+  font-weight: 900;
+  color: white;
+  letter-spacing: -3px;
+  margin: 0;
+}
+
+.lp-header-minimal .logo span {
+  color: #4f46e5;
+}
+
+.lp-tagline {
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 5px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-top: 10px;
+}
+
+/* --- BUTTON GRID --- */
+.lp-action-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.lp-command-btn {
+  display: grid;
+  grid-template-columns: 40px 1fr 20px;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 22px 30px;
+  border-radius: 14px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(12px);
+}
+
+.lp-command-btn:hover {
+  background: rgba(79, 70, 229, 0.1);
+  border-color: #4f46e5;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.btn-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  color: #4f46e5;
+}
+
+.btn-main-info {
+  text-align: left;
+  padding-left: 10px;
+}
+
+.btn-main-info strong {
+  display: block;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-bottom: 2px;
+}
+
+.btn-main-info small {
+  display: block;
+  opacity: 0.4;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-arrow {
+  opacity: 0.3;
+  font-size: 1.2rem;
+  transition: 0.3s;
+}
+
+.lp-command-btn:hover .btn-arrow {
+  opacity: 1;
+  color: #4f46e5;
+  transform: translateX(5px);
+}
+
+/* --- 🔥 PILLAR 04: PROME SPECIAL STYLING --- */
+.lp-command-btn.prome-btn-style {
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.15) 0%, rgba(15, 23, 42, 0.7) 100%);
+  border: 1px solid rgba(79, 70, 229, 0.3);
+}
+
+.prome-glitch {
+  display: block;
+  font-size: 0.65rem;
+  color: #818cf8;
+  letter-spacing: 2.5px;
+  margin-top: 4px;
+  font-weight: 900;
+  text-transform: uppercase;
+  animation: promePulse 3s infinite ease-in-out;
+}
+
+@keyframes promePulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+/* ===== BEME.PRO SPECIAL MODE ===== */
+.lp-command-btn.pro-mode {
+  background: linear-gradient(
+    135deg,
+    rgba(79, 70, 229, 0.18),
+    rgba(15, 23, 42, 0.85)
+  );
+  border: 1px solid rgba(99, 102, 241, 0.4);
+  box-shadow: 0 0 0 transparent;
+}
+
+.lp-command-btn.pro-mode:hover {
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.45);
+  transform: translateY(-3px);
+}
+
+.lp-command-btn.pro-mode strong {
+  color: #e0e7ff;
+}
+
+.pro-sub {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.65rem;
+  letter-spacing: 1.5px;
+  color: #a5b4fc;
+  opacity: 0.85;
+  text-transform: uppercase;
+}

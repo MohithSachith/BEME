@@ -1,0 +1,113 @@
+body {
+  margin: 0;
+  background: #020617;
+  color: #e5e7eb;
+  font-family: Inter, system-ui;
+}
+
+.app {
+  padding: 20px 40px;
+}
+
+.blur {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.logo span {
+  color: #6366f1;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  background: #1e293b;
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button.primary {
+  background: #6366f1;
+}
+
+.card {
+  background: #0f172a;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #1e293b;
+}
+
+.habit-name {
+  text-align: left;
+  cursor: pointer;
+}
+
+.cell {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+}
+
+.cell.s0 {
+  background: #1e293b;
+}
+
+.cell.s1 {
+  background: #10b981;
+  color: white;
+}
+
+.cell.s2 {
+  background: #ef4444;
+  color: white;
+}
+
+.phase-morning td:first-child {
+  border-left: 4px solid #fbbf24;
+}
+
+.phase-afternoon td:first-child {
+  border-left: 4px solid #f97316;
+}
+
+.phase-night td:first-child {
+  border-left: 4px solid #6366f1;
+}
+
+.analytics .stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}

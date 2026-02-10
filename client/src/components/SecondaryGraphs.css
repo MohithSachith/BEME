@@ -1,0 +1,27 @@
+.secondary-graphs-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  margin-top: 35px;
+}
+
+.graph-box {
+  background: rgba(30, 41, 59, 0.7);
+  border-radius: 18px;
+  padding: 20px;
+}
+
+.graph-box h4 {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  opacity: 0.75;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .secondary-graphs-wrapper {
+    grid-template-columns: 1fr;
+  }
+}

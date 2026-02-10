@@ -1,0 +1,67 @@
+.analytics-wrapper {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+}
+
+.metric-box {
+  background: rgba(30, 41, 59, 0.8);
+  padding: 18px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.metric-box span {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  opacity: 0.6;
+}
+
+.metric-box strong {
+  display: block;
+  font-size: 1.4rem;
+  margin-top: 6px;
+  color: #4f46e5;
+}
+
+.analytics-card {
+  background: rgba(15, 23, 42, 0.7);
+  border-radius: 18px;
+  padding: 22px;
+}
+
+.analytics-card h4 {
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+  font-size: 0.75rem;
+  opacity: 0.7;
+}
+
+.analytics-card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.analytics-card th,
+.analytics-card td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.85rem;
+}
+
+.analytics-card.insight p {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.science {
+  margin-top: 12px;
+  color: #a5b4fc;
+}

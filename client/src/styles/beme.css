@@ -1,0 +1,83 @@
+.beme {
+  min-height: 100vh;
+  background: #0b0b0b;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Inter, system-ui, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+.beme h1 {
+  font-size: 2.6rem;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+}
+
+.beme h2 {
+  font-size: 1.4rem;
+  margin: 10px 0;
+}
+
+.beme p {
+  opacity: 0.75;
+  margin: 6px 0;
+}
+
+.time {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+
+.countdown {
+  margin-top: 10px;
+  font-size: 1.1rem;
+  color: #ff3b3b;
+}
+
+button {
+  margin-top: 20px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  background: #ffffff;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+button.danger {
+  background: #ff3b3b;
+  color: #fff;
+}
+
+textarea {
+  width: 320px;
+  height: 110px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+input[type="range"] {
+  width: 280px;
+  margin-top: 10px;
+}
+
+.failed h1 {
+  color: #ff3b3b;
+}
+
+.completed h1 {
+  color: #00ff99;
+}

@@ -1,0 +1,172 @@
+/* ===============================
+   ENGINE ROW WRAPPER
+================================ */
+.engine-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  padding: 22px;
+  margin: 26px 0;
+  border-radius: 22px;
+  position: relative;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(18px);
+}
+
+/* ===============================
+   SEVERITY STATES (SUBTLE)
+================================ */
+.severity-ok {
+  box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.12);
+}
+
+.severity-warn {
+  box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.18);
+}
+
+.severity-danger {
+  box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.18);
+}
+
+/* ===============================
+   SYSTEM BANNER
+================================ */
+.engine-system-banner {
+  grid-column: span 5;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.engine-system-banner strong {
+  color: #94a3b8;
+}
+
+.engine-system-banner .state.ok {
+  color: #10b981;
+}
+
+.engine-system-banner .state.warn {
+  color: #fbbf24;
+}
+
+.engine-system-banner .state.danger {
+  color: #ef4444;
+}
+
+/* Status dot */
+.engine-system-banner .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.engine-system-banner .dot.ok {
+  background: #10b981;
+}
+
+.engine-system-banner .dot.warn {
+  background: #fbbf24;
+}
+
+.engine-system-banner .dot.danger {
+  background: #ef4444;
+}
+
+/* ===============================
+   ENGINE CARDS
+================================ */
+.engine-card {
+  background: rgba(30, 41, 59, 0.65);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 16px;
+  padding: 18px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.engine-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+}
+
+/* Neutral / loading card */
+.engine-card.neutral {
+  grid-column: span 5;
+  background: rgba(15, 23, 42, 0.55);
+  text-align: center;
+}
+
+/* ===============================
+   CARD CONTENT
+================================ */
+.engine-card h4 {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  opacity: 0.55;
+  margin-bottom: 10px;
+}
+
+.engine-card strong {
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+/* Value colors */
+.engine-card strong.ok {
+  color: #10b981;
+}
+
+.engine-card strong.warn {
+  color: #fbbf24;
+}
+
+.engine-card strong.danger {
+  color: #ef4444;
+}
+
+/* Subtext */
+.engine-card small {
+  margin-top: 6px;
+  font-size: 0.65rem;
+  opacity: 0.45;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ===============================
+   MEMORY TEXT
+================================ */
+.memory-text {
+  font-size: 0.85rem;
+  line-height: 1.45;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 1200px) {
+  .engine-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .engine-system-banner {
+    grid-column: span 2;
+  }
+
+  .engine-card.neutral {
+    grid-column: span 2;
+  }
+}

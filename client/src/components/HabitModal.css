@@ -1,0 +1,172 @@
+/* ===============================
+   OVERLAY
+================================ */
+.habit-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* ===============================
+   MODAL CARD
+================================ */
+.habit-modal-card {
+  width: 460px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+/* ===============================
+   HEADER
+================================ */
+.habit-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.habit-modal-header h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  color: #64748b;
+}
+
+/* ===============================
+   FORM
+================================ */
+.habit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.habit-form label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.habit-form input,
+.habit-form textarea,
+.habit-form select {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.habit-form textarea {
+  resize: none;
+  min-height: 70px;
+}
+
+.habit-form input:focus,
+.habit-form textarea:focus,
+.habit-form select:focus {
+  border-color: #4f46e5;
+}
+
+/* ===============================
+   ROW
+================================ */
+.form-row {
+  display: flex;
+  gap: 12px;
+}
+
+.form-row > div {
+  flex: 1;
+}
+
+/* ===============================
+   BEME.PRO SECTION
+================================ */
+.beme-section {
+  margin-top: 22px;
+  padding: 16px;
+  border-radius: 14px;
+  background: #eef2ff;
+  border: 1px dashed #4f46e5;
+}
+
+.beme-section h4 {
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #4f46e5;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.beme-warning {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #ef4444;
+  margin-top: 6px;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+.habit-modal-footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-save {
+  background: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #f1f5f9;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.btn-delete {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}

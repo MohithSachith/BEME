@@ -1,0 +1,43 @@
+.human-body-wrapper {
+  text-align: center;
+  padding: 24px;
+}
+
+.body-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  margin-top: 16px;
+}
+
+.human-svg {
+  width: 180px;
+  height: auto;
+}
+
+.body-label {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.body-label.left {
+  text-align: right;
+}
+
+.body-label.right {
+  text-align: left;
+}
+
+.body-label span {
+  opacity: 0.85;
+}
+
+.body-note {
+  margin-top: 14px;
+  font-size: 0.7rem;
+  color: #64748b;
+}

@@ -1,0 +1,60 @@
+.human-fill-wrapper {
+  text-align: center;
+  padding: 32px;
+}
+
+.human-title {
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  color: #c7d2fe;
+  margin-bottom: 16px;
+}
+
+/* TWO BODY COMPARISON */
+.human-compare {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+}
+
+/* BODY */
+.human-svg {
+  width: 200px;
+  height: 420px;
+}
+
+/* PREVIOUS BODY */
+.human-svg.faded {
+  opacity: 0.35;
+}
+
+/* LIQUID */
+.human-liquid {
+  transition:
+    y 1.8s cubic-bezier(0.16, 1, 0.3, 1),
+    height 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* WAVE MOTION */
+.wave {
+  animation: waveMove 4s ease-in-out infinite;
+}
+
+@keyframes waveMove {
+  0% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  100% { transform: translateX(-4px); }
+}
+
+/* GLOW WHEN STRONG */
+.glow .human-svg {
+  filter: drop-shadow(0 0 25px rgba(34,197,94,0.45));
+}
+
+/* SCORE */
+.human-score {
+  margin-top: 14px;
+  font-size: 0.75rem;
+  color: #c7d2fe;
+  letter-spacing: 0.12em;
+}

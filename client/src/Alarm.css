@@ -1,0 +1,96 @@
+.alarm-container {
+  min-height: 100vh;
+  background: radial-gradient(circle, #0f172a, #020617);
+  color: #e5e7eb;
+  display: flex;
+  flex-direction: column;
+}
+
+.alarm-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.exit-btn {
+  background: none;
+  border: 1px solid #334155;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.tabs button {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.tabs .active {
+  color: #818cf8;
+}
+
+.alarm-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.big-time {
+  font-size: 6rem;
+  font-weight: 900;
+}
+
+input[type="time"] {
+  background: #020617;
+  border: 1px solid #334155;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.start { background: #4f46e5; color: white; }
+.stop { background: #ef4444; color: white; }
+.lap { background: #0ea5e9; color: white; }
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.laps {
+  margin-top: 20px;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 260px;
+}
+
+.lap {
+  padding: 6px;
+  font-size: 0.8rem;
+  border-bottom: 1px solid #1e293b;
+}
+
+.tier-row {
+  display: flex;
+  gap: 10px;
+}
