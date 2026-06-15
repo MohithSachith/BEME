@@ -1,143 +1,441 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import "./Notebook.css";
 
 export default function Notebook({ onBack }) {
   const [text, setText] = useState("");
   const [entries, setEntries] = useState([]);
+  const [habits, setHabits] = useState([]);
   const [mood, setMood] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  /* ===== SYSTEM SNAPSHOT (safe default) ===== */
-  const systemState = {
-    label: "STABLE",
-    focus: 42,
-    attendance: 61,
-    missedHabits: 4,
-    cycle: new Date().getHours() >= 21 ? "Night Cycle" : "Day Cycle"
-  };
+  const today = new Date();
+  const dayIndex = today.getDate() - 1;
 
-  /* ===== LOAD JOURNAL ===== */
+  const month = `${today.getFullYear()}-${String(
+    today.getMonth() + 1
+  ).padStart(2, "0")}`;
+
+  /* =====================================
+     LOAD DATA
+  ===================================== */
+
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/journal");
-        setEntries(res.data || []);
-      } catch (e) {
-        console.error("Journal load failed", e);
+        const [journalRes, habitsRes] =
+          await Promise.all([
+            axios.get(
+              "http://localhost:5000/api/journal"
+            ),
+            axios.get(
+              `http://localhost:5000/api/habits/${month}`
+            )
+          ]);
+
+        setEntries(journalRes.data || []);
+        setHabits(
+          habitsRes.data?.habits || []
+        );
+      } catch (err) {
+        console.log(err);
       } finally {
         setLoading(false);
       }
     };
+
     load();
-  }, []);
+  }, [month]);
 
-  /* ===== SAVE ENTRY ===== */
-  const saveEntry = async () => {
-    if (!text.trim()) return;
+  /* =====================================
+     REAL METRICS
+  ===================================== */
 
-    try {
-      const res = await axios.post("http://localhost:5000/api/journal", {
-        text,
-        mood,
-        systemState
+  const metrics = useMemo(() => {
+    if (!habits.length) {
+      return {
+        focus: 0,
+        attendance: 0,
+        streak: 0,
+        missedToday: 0,
+        entropy: 100,
+        score: 0,
+        label: "NO DATA"
+      };
+    }
+
+    let total = 0;
+    let done = 0;
+    let missedToday = 0;
+
+    habits.forEach(h => {
+      h.entries.forEach(v => {
+        if (v === 1 || v === 2) total++;
+        if (v === 1) done++;
       });
 
-      setEntries(prev => [res.data, ...prev]);
-      setText("");
-      setMood(null);
-    } catch (e) {
-      console.error("Save failed", e);
+      if (
+        h.entries?.[dayIndex] === 2
+      )
+        missedToday++;
+    });
+
+    const attendance = total
+      ? Math.round(
+          (done / total) * 100
+        )
+      : 0;
+
+    const productive = habits.filter(h =>
+      [
+        "study",
+        "coding",
+        "gym",
+        "reading",
+        "meditation"
+      ].some(k =>
+        h.name
+          .toLowerCase()
+          .includes(k)
+      )
+    );
+
+    let productiveTotal = 0;
+    let productiveDone = 0;
+
+    productive.forEach(h => {
+      h.entries.forEach(v => {
+        if (v === 1 || v === 2)
+          productiveTotal++;
+        if (v === 1)
+          productiveDone++;
+      });
+    });
+
+    const focus =
+      productiveTotal > 0
+        ? Math.round(
+            (productiveDone /
+              productiveTotal) *
+              100
+          )
+        : attendance;
+
+    /* streak */
+    let streak = 0;
+
+    for (
+      let d = dayIndex;
+      d >= 0;
+      d--
+    ) {
+      let ok = false;
+
+      for (let h of habits) {
+        if (
+          h.entries?.[d] === 1
+        ) {
+          ok = true;
+          break;
+        }
+      }
+
+      if (ok) streak++;
+      else break;
     }
-  };
+
+    const entropy =
+      100 -
+      Math.round(
+        attendance * 0.7 +
+          focus * 0.3
+      );
+
+    const score = Math.round(
+      attendance * 0.4 +
+        focus * 0.3 +
+        streak * 1.5 -
+        missedToday * 4
+    );
+
+    const label =
+      score >= 80
+        ? "OPTIMAL"
+        : score >= 60
+        ? "STABLE"
+        : score >= 40
+        ? "WARNING"
+        : "CRITICAL";
+
+    return {
+      focus,
+      attendance,
+      streak,
+      missedToday,
+      entropy:
+        entropy < 0
+          ? 0
+          : entropy,
+      score:
+        score < 0
+          ? 0
+          : score,
+      label
+    };
+  }, [habits, dayIndex]);
+
+  /* =====================================
+     TIME CYCLE
+  ===================================== */
+
+  const cycle = (() => {
+    const h =
+      new Date().getHours();
+
+    if (h < 5)
+      return "Recovery Cycle";
+    if (h < 12)
+      return "Morning Prime";
+    if (h < 17)
+      return "Execution Window";
+    if (h < 22)
+      return "Reflection Phase";
+    return "Shutdown Cycle";
+  })();
+
+  /* =====================================
+     SAVE ENTRY
+  ===================================== */
+
+  const saveEntry =
+    async () => {
+      if (!text.trim())
+        return;
+
+      try {
+        const payload = {
+          text,
+          mood,
+          systemState: {
+            ...metrics,
+            cycle
+          }
+        };
+
+        const res =
+          await axios.post(
+            "http://localhost:5000/api/journal",
+            payload
+          );
+
+        setEntries(prev => [
+          res.data,
+          ...prev
+        ]);
+
+        setText("");
+        setMood(null);
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
   return (
     <div className="journal-page">
-
-      {/* ===== HEADER ===== */}
       <header className="journal-header">
-        <h1>NEURAL NOTEBOOK</h1>
-        <button className="back-btn" onClick={onBack}>← Back</button>
+        <h1>
+          NEURAL
+          <span>
+            NOTEBOOK
+          </span>
+        </h1>
+
+        <button
+          className="back-btn"
+          onClick={onBack}
+        >
+          ← Return
+        </button>
       </header>
 
       <main className="journal-container">
 
-        {/* ===== EDITOR ===== */}
+        {/* TOP PANEL */}
         <section className="editor-card">
 
-          {/* SYSTEM STATUS */}
           <div className="system-pill">
-            <span className="label">{systemState.label}</span>
-            <span>Focus {systemState.focus}%</span>
-            <span>Attendance {systemState.attendance}%</span>
-            <span>{systemState.missedHabits} habits missed</span>
-            <span>{systemState.cycle}</span>
+            <span className="label">
+              {metrics.label}
+            </span>
+
+            <span className="blue">
+              🎯 Focus{" "}
+              {metrics.focus}%
+            </span>
+
+            <span className="green">
+              📊 Attendance{" "}
+              {
+                metrics.attendance
+              }
+              %
+            </span>
+
+            <span>
+              ⚡ Score{" "}
+              {metrics.score}
+            </span>
+
+            <span>
+              🌪 Entropy{" "}
+              {
+                metrics.entropy
+              }
+            </span>
+
+            <span>
+              🔥 Streak{" "}
+              {metrics.streak}
+            </span>
+
+            <span>
+              ❌ Missed{" "}
+              {
+                metrics.missedToday
+              }
+            </span>
+
+            <span>
+              🕒 {cycle}
+            </span>
           </div>
 
-          {/* MOOD */}
+          {/* Mood */}
           <div className="mood-row">
-            {["🙂", "😐", "😔", "😡", "😴"].map(m => (
+            {[
+              "🚀",
+              "🙂",
+              "😐",
+              "😔",
+              "😡",
+              "😴"
+            ].map(m => (
               <button
                 key={m}
-                className={`mood ${mood === m ? "active" : ""}`}
-                onClick={() => setMood(m)}
+                className={`mood ${
+                  mood === m
+                    ? "active"
+                    : ""
+                }`}
+                onClick={() =>
+                  setMood(m)
+                }
               >
                 {m}
               </button>
             ))}
           </div>
 
-          {/* TEXT */}
+          {/* textarea */}
           <textarea
-            placeholder="What did the system feel like today?"
             value={text}
-            onChange={e => setText(e.target.value)}
+            onChange={e =>
+              setText(
+                e.target.value
+              )
+            }
+            placeholder="Write resistance, wins, distractions, thoughts, patterns..."
           />
 
-          <button className="save-btn" onClick={saveEntry}>
+          <button
+            className="save-btn"
+            onClick={saveEntry}
+          >
             SAVE ENTRY
           </button>
         </section>
 
-        {/* ===== ENTRIES ===== */}
-        {loading && <p className="empty">Loading journal…</p>}
-
-        {!loading && entries.length === 0 && (
-          <p className="empty">No neural logs yet.</p>
+        {/* Entries */}
+        {loading && (
+          <p className="empty">
+            Loading...
+          </p>
         )}
+
+        {!loading &&
+          entries.length ===
+            0 && (
+            <p className="empty">
+              No neural logs.
+            </p>
+          )}
 
         <section className="entries">
           {entries.map(e => (
-            <article key={e._id} className="entry-card">
-
+            <div
+              key={e._id}
+              className="entry-card"
+            >
               <div className="entry-top">
-                <span className="date">
-                  {new Date(e.createdAt).toLocaleDateString()}
+                <span>
+                  {new Date(
+                    e.createdAt
+                  ).toLocaleDateString()}
                 </span>
-                <span className="time">
-                  {new Date(e.createdAt).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit"
-                  })}
+
+                <span>
+                  {e.mood}
                 </span>
-                {e.mood && <span className="entry-mood">{e.mood}</span>}
               </div>
 
-              <p className="entry-text">{e.text}</p>
+              <p className="entry-text">
+                {e.text}
+              </p>
 
               {e.systemState && (
                 <div className="entry-stats">
-                  <div>🎯 Focus: {e.systemState.focus}%</div>
-                  <div>📊 Attendance: {e.systemState.attendance}%</div>
-                  <div>❌ Missed: {e.systemState.missedHabits}</div>
-                  <div>🕒 {e.systemState.cycle}</div>
+                  <div>
+                    🎯{" "}
+                    {
+                      e
+                        .systemState
+                        .focus
+                    }
+                    %
+                  </div>
+
+                  <div>
+                    📊{" "}
+                    {
+                      e
+                        .systemState
+                        .attendance
+                    }
+                    %
+                  </div>
+
+                  <div>
+                    🔥{" "}
+                    {
+                      e
+                        .systemState
+                        .streak
+                    }
+                  </div>
+
+                  <div>
+                    ⚡{" "}
+                    {
+                      e
+                        .systemState
+                        .score
+                    }
+                  </div>
                 </div>
               )}
-
-            </article>
+            </div>
           ))}
         </section>
-
       </main>
     </div>
   );

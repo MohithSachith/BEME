@@ -1,69 +1,194 @@
-.habit-action-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
+/* =========================================
+   HabitActionModal.css
+   PREMIUM DARK UI
+========================================= */
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.habit-action-overlay{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(0,0,0,.82);
+  backdrop-filter:blur(10px);
 }
 
-.habit-action-card {
-  width: 420px;
-  background: #020617;
-  border-radius: 20px;
-  padding: 30px;
-  color: #e5e7eb;
-  text-align: center;
-  box-shadow: 0 0 40px rgba(79,70,229,0.4);
+/* =========================================
+   CARD
+========================================= */
+
+.habit-action-card{
+  width:430px;
+  max-width:92%;
+
+  padding:34px 30px;
+  border-radius:28px;
+
+  text-align:center;
+  color:#ffffff;
+
+  background:
+    radial-gradient(circle at top right,
+      rgba(59,130,246,.10),
+      transparent 30%),
+    linear-gradient(180deg,#0b1120,#111827);
+
+  border:1px solid rgba(255,255,255,.06);
+
+  box-shadow:
+    0 35px 90px rgba(0,0,0,.58);
 }
 
-.habit-action-card h2 {
-  font-size: 1.6rem;
-  margin-bottom: 10px;
+/* =========================================
+   TITLE
+========================================= */
+
+.habit-action-card h2{
+  margin:0 0 10px;
+  font-size:1.65rem;
+  font-weight:950;
+  letter-spacing:-.5px;
 }
 
-.habit-desc {
-  color: #94a3b8;
-  font-size: 0.9rem;
-  margin-bottom: 20px;
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.habit-desc{
+  margin-bottom:22px;
+
+  color:#94a3b8;
+  font-size:.94rem;
+  line-height:1.65;
 }
 
-.timer {
-  font-size: 2.4rem;
-  font-weight: 900;
-  margin: 20px 0;
-  color: #fbbf24;
+/* =========================================
+   TIMER
+========================================= */
+
+.timer{
+  margin:22px 0;
+
+  font-size:2.8rem;
+  font-weight:950;
+  letter-spacing:1px;
+
+  color:#facc15;
+
+  text-shadow:
+    0 0 18px rgba(250,204,21,.28),
+    0 0 36px rgba(250,204,21,.10);
 }
 
-.actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
+/* =========================================
+   BUTTONS ROW
+========================================= */
+
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  flex-wrap:wrap;
 }
 
-.btn-start {
-  background: #10b981;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 800;
-  cursor: pointer;
+/* =========================================
+   COMMON BUTTON
+========================================= */
+
+.btn-start,
+.btn-fail{
+  border:none;
+  cursor:pointer;
+
+  padding:13px 22px;
+  border-radius:16px;
+
+  color:#fff;
+  font-size:.92rem;
+  font-weight:900;
+  letter-spacing:.02em;
+
+  transition:.22s ease;
 }
 
-.btn-fail {
-  background: #ef4444;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 12px;
-  border: none;
-  font-weight: 800;
-  cursor: pointer;
+.btn-start:hover,
+.btn-fail:hover{
+  transform:translateY(-2px);
 }
 
-.warning {
-  margin-top: 15px;
-  font-size: 0.7rem;
-  color: #64748b;
+.btn-start:active,
+.btn-fail:active{
+  transform:scale(.97);
+}
+
+/* =========================================
+   START BUTTON
+========================================= */
+
+.btn-start{
+  background:linear-gradient(135deg,#22c55e,#15803d);
+
+  box-shadow:
+    0 14px 28px rgba(34,197,94,.26);
+}
+
+/* =========================================
+   FAIL BUTTON
+========================================= */
+
+.btn-fail{
+  background:linear-gradient(135deg,#ef4444,#b91c1c);
+
+  box-shadow:
+    0 14px 28px rgba(239,68,68,.24);
+}
+
+/* =========================================
+   WARNING TEXT
+========================================= */
+
+.warning{
+  margin-top:18px;
+
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.06em;
+
+  color:#64748b;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:768px){
+
+  .habit-action-card{
+    width:94%;
+    padding:28px 22px;
+  }
+
+  .habit-action-card h2{
+    font-size:1.35rem;
+  }
+
+  .timer{
+    font-size:2.2rem;
+  }
+
+  .actions{
+    flex-direction:column;
+  }
+
+  .btn-start,
+  .btn-fail{
+    width:100%;
+  }
 }

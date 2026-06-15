@@ -1,13 +1,9 @@
-import JournalEntry from "../models/JournalEntry.js";
+const JournalEntry = require("../models/JournalEntry");
 
 /* CREATE JOURNAL ENTRY */
-export const createEntry = async (req, res) => {
+const createEntry = async (req, res) => {
   try {
-    const entry = await JournalEntry.create({
-      userId: req.user.id,
-      ...req.body
-    });
-
+    const entry = await JournalEntry.create(req.body);
     res.status(201).json(entry);
   } catch (error) {
     console.error(error);
@@ -16,15 +12,14 @@ export const createEntry = async (req, res) => {
 };
 
 /* GET ALL JOURNAL ENTRIES */
-export const getEntries = async (req, res) => {
+const getEntries = async (req, res) => {
   try {
-    const entries = await JournalEntry.find({
-      userId: req.user.id
-    }).sort({ createdAt: -1 });
-
+    const entries = await JournalEntry.find().sort({ createdAt: -1 });
     res.json(entries);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Failed to fetch journal entries" });
   }
 };
+
+module.exports = { createEntry, getEntries };

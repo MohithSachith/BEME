@@ -1,22 +1,39 @@
-import React, { useMemo } from "react";
+import React, {
+  useMemo
+} from "react";
+
 import "./HeatmapCalendar.css";
 
-export default function HeatmapCalendar({ habits = [], daysInMonth }) {
+export default function HeatmapCalendar({
+  habits = [],
+  daysInMonth
+}) {
   const heatmapData = useMemo(() => {
     if (!habits.length) return [];
 
-    return Array.from({ length: daysInMonth }).map((_, day) => {
+    return Array.from({
+      length: daysInMonth
+    }).map((_, day) => {
       let done = 0;
       let total = habits.length;
 
       habits.forEach(h => {
-        const v = h.entries?.[day] ?? 0;
+        const v =
+          h.entries?.[day] ?? 0;
+
         if (v === 1) done++;
       });
 
-      const percent = total ? Math.round((done / total) * 100) : 0;
+      const percent = total
+        ? Math.round(
+            (done / total) * 100
+          )
+        : 0;
 
-      return { day: day + 1, percent };
+      return {
+        day: day + 1,
+        percent
+      };
     });
   }, [habits, daysInMonth]);
 
@@ -30,28 +47,32 @@ export default function HeatmapCalendar({ habits = [], daysInMonth }) {
 
   return (
     <div className="heatmap-wrapper">
-      <h3 className="heatmap-title">Consistency Heatmap</h3>
+      <h3 className="heatmap-title">
+        Consistency Heatmap
+      </h3>
 
       <div className="heatmap-grid">
         {heatmapData.map(d => (
           <div
             key={d.day}
-            className={`heatmap-cell ${getLevel(d.percent)}`}
+            className={`heatmap-cell ${getLevel(
+              d.percent
+            )}`}
             title={`Day ${d.day} • ${d.percent}%`}
           >
-            <span>{d.day}</span>
+            {d.day}
           </div>
         ))}
       </div>
 
       <div className="heatmap-legend">
-        <span>Less</span>
+        <span>Low</span>
         <div className="box lvl0" />
         <div className="box lvl1" />
         <div className="box lvl2" />
         <div className="box lvl3" />
         <div className="box lvl4" />
-        <span>More</span>
+        <span>High</span>
       </div>
     </div>
   );

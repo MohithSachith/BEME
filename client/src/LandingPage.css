@@ -1,177 +1,365 @@
-/* --- RESET AND WRAPPER --- */
-.lp-wrapper.dark-setup {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background-color: #020617;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
+/* ==========================================
+   LANDING PAGE v5 PREMIUM IMPRESSION UI
+   BLACK + BRIGHT + DISCIPLINE FEEL
+   Replace full LandingPage.css
+========================================== */
+
+/* ==========================================
+   ROOT
+========================================== */
+
+:root{
+  --bg:#030303;
+  --bg2:#090909;
+
+  --card:#111111;
+  --card2:#171717;
+  --line:#262626;
+
+  --text:#ffffff;
+  --muted:#9ca3af;
+
+  --blue:#3b82f6;
+  --blue2:#2563eb;
+
+  --green:#22c55e;
+  --red:#ef4444;
+  --yellow:#facc15;
+  --purple:#8b5cf6;
 }
 
-.lp-canvas-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
+/* ==========================================
+   WRAPPER
+========================================== */
+
+.lp-wrapper.dark-setup{
+  position:relative;
+  width:100vw;
+  height:100vh;
+  overflow:hidden;
+
+  background:
+    radial-gradient(circle at top right, rgba(59,130,246,.10), transparent 25%),
+    radial-gradient(circle at top left, rgba(250,204,21,.06), transparent 20%),
+    radial-gradient(circle at bottom left, rgba(34,197,94,.05), transparent 22%),
+    linear-gradient(180deg,var(--bg),var(--bg2));
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Inter,system-ui,sans-serif;
 }
 
-.lp-content {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* ==========================================
+   BACKGROUND CANVAS
+========================================== */
+
+.lp-canvas-container{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  opacity:.75;
 }
 
-/* --- HEADER --- */
-.lp-header-minimal {
-  text-align: center;
-  margin-bottom: 50px;
+/* ==========================================
+   MAIN CONTENT
+========================================== */
+
+.lp-content{
+  position:relative;
+  z-index:10;
+
+  width:100%;
+  max-width:620px;
+  padding:22px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
 }
 
-.lp-header-minimal .logo {
-  font-size: 4rem;
-  font-weight: 900;
-  color: white;
-  letter-spacing: -3px;
-  margin: 0;
+/* ==========================================
+   HEADER
+========================================== */
+
+.lp-header-minimal{
+  text-align:center;
+  margin-bottom:18px;
 }
 
-.lp-header-minimal .logo span {
-  color: #4f46e5;
+.lp-header-minimal .logo{
+  margin:0;
+  font-size:4.3rem;
+  font-weight:950;
+  letter-spacing:-3px;
+  color:#fff;
 }
 
-.lp-tagline {
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 5px;
-  font-size: 0.7rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin-top: 10px;
+.lp-header-minimal .logo span{
+  color:var(--blue);
+  text-shadow:0 0 26px rgba(59,130,246,.45);
 }
 
-/* --- BUTTON GRID --- */
-.lp-action-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
+.lp-tagline{
+  margin-top:10px;
+  color:#94a3b8;
+  letter-spacing:5px;
+  font-size:.72rem;
+  font-weight:900;
+  text-transform:uppercase;
 }
 
-.lp-command-btn {
-  display: grid;
-  grid-template-columns: 40px 1fr 20px;
-  align-items: center;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 22px 30px;
-  border-radius: 14px;
-  color: white;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(12px);
+/* ==========================================
+   HERO SLOGAN
+========================================== */
+
+.lp-hero-quote{
+  margin-bottom:28px;
+  text-align:center;
+  max-width:540px;
 }
 
-.lp-command-btn:hover {
-  background: rgba(79, 70, 229, 0.1);
-  border-color: #4f46e5;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+.lp-hero-quote h2{
+  font-size:1.45rem;
+  line-height:1.5;
+  font-weight:900;
+  color:#fff;
 }
 
-.btn-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 0.9rem;
-  color: #4f46e5;
+.lp-hero-quote h2 span{
+  color:var(--yellow);
 }
 
-.btn-main-info {
-  text-align: left;
-  padding-left: 10px;
+.lp-hero-quote p{
+  margin-top:10px;
+  font-size:.92rem;
+  color:var(--muted);
+  line-height:1.7;
 }
 
-.btn-main-info strong {
-  display: block;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  margin-bottom: 2px;
+/* ==========================================
+   ACTION GRID
+========================================== */
+
+.lp-action-grid{
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
 }
 
-.btn-main-info small {
-  display: block;
-  opacity: 0.4;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+/* ==========================================
+   BUTTON CARD
+========================================== */
+
+.lp-command-btn{
+  width:100%;
+  display:grid;
+  grid-template-columns:46px 1fr 24px;
+  gap:10px;
+  align-items:center;
+
+  padding:22px 24px;
+  border-radius:20px;
+
+  border:1px solid rgba(255,255,255,.06);
+
+  background:
+    linear-gradient(180deg,#111111,#171717);
+
+  color:#fff;
+  cursor:pointer;
+
+  transition:.25s ease;
+
+  box-shadow:0 18px 40px rgba(0,0,0,.40);
 }
 
-.btn-arrow {
-  opacity: 0.3;
-  font-size: 1.2rem;
-  transition: 0.3s;
+.lp-command-btn:hover{
+  transform:translateY(-4px);
 }
 
-.lp-command-btn:hover .btn-arrow {
-  opacity: 1;
-  color: #4f46e5;
-  transform: translateX(5px);
+/* ==========================================
+   BUTTON COLORS
+========================================== */
+
+.lp-command-btn.analytics-mode:hover{
+  border-color:var(--yellow);
+  box-shadow:0 0 24px rgba(250,204,21,.18);
 }
 
-/* --- 🔥 PILLAR 04: PROME SPECIAL STYLING --- */
-.lp-command-btn.prome-btn-style {
-  background: linear-gradient(90deg, rgba(79, 70, 229, 0.15) 0%, rgba(15, 23, 42, 0.7) 100%);
-  border: 1px solid rgba(79, 70, 229, 0.3);
+.lp-command-btn.journal-mode:hover{
+  border-color:var(--green);
+  box-shadow:0 0 24px rgba(34,197,94,.18);
 }
 
-.prome-glitch {
-  display: block;
-  font-size: 0.65rem;
-  color: #818cf8;
-  letter-spacing: 2.5px;
-  margin-top: 4px;
-  font-weight: 900;
-  text-transform: uppercase;
-  animation: promePulse 3s infinite ease-in-out;
+.lp-command-btn.alarm-mode:hover{
+  border-color:var(--red);
+  box-shadow:0 0 24px rgba(239,68,68,.18);
 }
 
-@keyframes promePulse {
-  0%, 100% { opacity: 0.7; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.02); }
-}
-/* ===== BEME.PRO SPECIAL MODE ===== */
-.lp-command-btn.pro-mode {
-  background: linear-gradient(
-    135deg,
-    rgba(79, 70, 229, 0.18),
-    rgba(15, 23, 42, 0.85)
-  );
-  border: 1px solid rgba(99, 102, 241, 0.4);
-  box-shadow: 0 0 0 transparent;
+.lp-command-btn.pro-mode{
+  background:
+    linear-gradient(135deg, rgba(59,130,246,.16), #101010);
+  border-color:rgba(59,130,246,.28);
 }
 
-.lp-command-btn.pro-mode:hover {
-  box-shadow: 0 0 25px rgba(99, 102, 241, 0.45);
-  transform: translateY(-3px);
+.lp-command-btn.pro-mode:hover{
+  border-color:var(--blue);
+  box-shadow:0 0 28px rgba(59,130,246,.22);
 }
 
-.lp-command-btn.pro-mode strong {
-  color: #e0e7ff;
+/* ==========================================
+   LEFT LABEL
+========================================== */
+
+.btn-label{
+  font-family:JetBrains Mono,monospace;
+  font-size:.9rem;
+  font-weight:900;
+  color:var(--blue);
 }
 
-.pro-sub {
-  display: block;
-  margin-top: 6px;
-  font-size: 0.65rem;
-  letter-spacing: 1.5px;
-  color: #a5b4fc;
-  opacity: 0.85;
-  text-transform: uppercase;
+.analytics-mode .btn-label{ color:var(--yellow); }
+.journal-mode .btn-label{ color:var(--green); }
+.alarm-mode .btn-label{ color:var(--red); }
+
+/* ==========================================
+   MAIN INFO
+========================================== */
+
+.btn-main-info{
+  text-align:left;
+}
+
+.btn-main-info strong{
+  display:block;
+  font-size:1.08rem;
+  font-weight:900;
+  letter-spacing:.5px;
+  margin-bottom:4px;
+}
+
+.btn-main-info small{
+  display:block;
+  color:#9ca3af;
+  font-size:.72rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+}
+
+.pro-sub{
+  display:block;
+  margin-top:6px;
+  font-size:.66rem;
+  color:#93c5fd;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+}
+
+/* ==========================================
+   ARROW
+========================================== */
+
+.btn-arrow{
+  font-size:1.2rem;
+  color:#6b7280;
+  transition:.25s ease;
+}
+
+.lp-command-btn:hover .btn-arrow{
+  transform:translateX(5px);
+  color:#fff;
+}
+
+/* ==========================================
+   ROTATING DISCIPLINE TEXT
+========================================== */
+
+.lp-discipline-strip{
+  margin-top:26px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:center;
+}
+
+.lp-discipline-strip span{
+  padding:7px 12px;
+  border-radius:999px;
+  font-size:.72rem;
+  font-weight:800;
+  letter-spacing:.03em;
+}
+
+.lp-discipline-strip span:nth-child(1){
+  background:rgba(59,130,246,.12);
+  color:#93c5fd;
+}
+
+.lp-discipline-strip span:nth-child(2){
+  background:rgba(34,197,94,.12);
+  color:#86efac;
+}
+
+.lp-discipline-strip span:nth-child(3){
+  background:rgba(250,204,21,.12);
+  color:#fde047;
+}
+
+.lp-discipline-strip span:nth-child(4){
+  background:rgba(239,68,68,.12);
+  color:#fca5a5;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.lp-footer{
+  margin-top:24px;
+  color:#6b7280;
+  font-size:.75rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  text-align:center;
+}
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+  .lp-content{
+    max-width:95%;
+    padding:16px;
+  }
+
+  .lp-header-minimal .logo{
+    font-size:3.1rem;
+  }
+
+  .lp-tagline{
+    letter-spacing:3px;
+    font-size:.62rem;
+  }
+
+  .lp-hero-quote h2{
+    font-size:1.1rem;
+  }
+
+  .lp-command-btn{
+    grid-template-columns:34px 1fr 18px;
+    padding:18px;
+    border-radius:16px;
+  }
+
+  .btn-main-info strong{
+    font-size:.95rem;
+  }
+
+  .btn-main-info small{
+    font-size:.64rem;
+  }
 }

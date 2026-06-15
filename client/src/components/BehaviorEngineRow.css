@@ -1,172 +1,268 @@
-/* ===============================
-   ENGINE ROW WRAPPER
-================================ */
-.engine-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 18px;
-  padding: 22px;
-  margin: 26px 0;
-  border-radius: 22px;
-  position: relative;
-  background: rgba(15, 23, 42, 0.6);
-  border: 1px solid rgba(255,255,255,0.06);
-  backdrop-filter: blur(18px);
+/* =========================================
+   BehaviorEngineRow.css
+   ULTRA PREMIUM COLORFUL VERSION
+   No functionality changes
+========================================= */
+
+/* =========================================
+   WRAPPER
+========================================= */
+
+.engine-row{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:18px;
+
+  padding:24px;
+  margin:28px 0;
+  border-radius:28px;
+  position:relative;
+
+  background:
+    linear-gradient(180deg,#111111,#171717);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  box-shadow:
+    0 24px 55px rgba(0,0,0,.45);
 }
 
-/* ===============================
-   SEVERITY STATES (SUBTLE)
-================================ */
-.severity-ok {
-  box-shadow: inset 0 0 0 1px rgba(16, 185, 129, 0.12);
+/* =========================================
+   SEVERITY STATES
+========================================= */
+
+.severity-ok{
+  box-shadow:
+    0 0 0 1px rgba(34,197,94,.14),
+    0 0 26px rgba(34,197,94,.08);
 }
 
-.severity-warn {
-  box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.18);
+.severity-warn{
+  box-shadow:
+    0 0 0 1px rgba(250,204,21,.18),
+    0 0 26px rgba(250,204,21,.08);
 }
 
-.severity-danger {
-  box-shadow: inset 0 0 0 1px rgba(239, 68, 68, 0.18);
+.severity-danger{
+  box-shadow:
+    0 0 0 1px rgba(239,68,68,.18),
+    0 0 26px rgba(239,68,68,.10);
 }
 
-/* ===============================
+/* =========================================
    SYSTEM BANNER
-================================ */
-.engine-system-banner {
-  grid-column: span 5;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  opacity: 0.8;
+========================================= */
+
+.engine-system-banner{
+  grid-column:span 5;
+
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  padding:12px 16px;
+  border-radius:18px;
+
+  background:#0d0d0d;
+
+  font-size:.72rem;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+
+  margin-bottom:4px;
 }
 
-.engine-system-banner strong {
-  color: #94a3b8;
+.engine-system-banner strong{
+  color:#94a3b8;
 }
 
-.engine-system-banner .state.ok {
-  color: #10b981;
+.engine-system-banner .state.ok{
+  color:#22c55e;
 }
 
-.engine-system-banner .state.warn {
-  color: #fbbf24;
+.engine-system-banner .state.warn{
+  color:#facc15;
 }
 
-.engine-system-banner .state.danger {
-  color: #ef4444;
+.engine-system-banner .state.danger{
+  color:#ef4444;
 }
 
-/* Status dot */
-.engine-system-banner .dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
+/* dot */
+
+.engine-system-banner .dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
 }
 
-.engine-system-banner .dot.ok {
-  background: #10b981;
+.engine-system-banner .dot.ok{
+  background:#22c55e;
+  box-shadow:0 0 12px rgba(34,197,94,.55);
 }
 
-.engine-system-banner .dot.warn {
-  background: #fbbf24;
+.engine-system-banner .dot.warn{
+  background:#facc15;
+  box-shadow:0 0 12px rgba(250,204,21,.55);
 }
 
-.engine-system-banner .dot.danger {
-  background: #ef4444;
+.engine-system-banner .dot.danger{
+  background:#ef4444;
+  box-shadow:0 0 12px rgba(239,68,68,.55);
 }
 
-/* ===============================
-   ENGINE CARDS
-================================ */
-.engine-card {
-  background: rgba(30, 41, 59, 0.65);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius: 16px;
-  padding: 18px 16px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+/* =========================================
+   CARDS
+========================================= */
+
+.engine-card{
+  border-radius:22px;
+  padding:20px 16px;
+
+  background:
+    linear-gradient(180deg,#141414,#1a1a1a);
+
+  border:1px solid rgba(255,255,255,.04);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  text-align:center;
+
+  transition:.24s ease;
 }
 
-.engine-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+.engine-card:hover{
+  transform:translateY(-4px);
 }
 
-/* Neutral / loading card */
-.engine-card.neutral {
-  grid-column: span 5;
-  background: rgba(15, 23, 42, 0.55);
-  text-align: center;
+/* colorful top lines */
+
+.engine-card:nth-child(2){
+  border-top:4px solid #22c55e;
 }
 
-/* ===============================
-   CARD CONTENT
-================================ */
-.engine-card h4 {
-  font-size: 0.65rem;
-  letter-spacing: 2px;
-  opacity: 0.55;
-  margin-bottom: 10px;
+.engine-card:nth-child(3){
+  border-top:4px solid #3b82f6;
 }
 
-.engine-card strong {
-  font-size: 1.55rem;
-  font-weight: 900;
-  letter-spacing: -0.5px;
+.engine-card:nth-child(4){
+  border-top:4px solid #f59e0b;
 }
 
-/* Value colors */
-.engine-card strong.ok {
-  color: #10b981;
+.engine-card:nth-child(5){
+  border-top:4px solid #ef4444;
 }
 
-.engine-card strong.warn {
-  color: #fbbf24;
+.engine-card:nth-child(6){
+  border-top:4px solid #8b5cf6;
 }
 
-.engine-card strong.danger {
-  color: #ef4444;
+/* neutral */
+
+.engine-card.neutral{
+  grid-column:span 5;
+  padding:28px;
 }
 
-/* Subtext */
-.engine-card small {
-  margin-top: 6px;
-  font-size: 0.65rem;
-  opacity: 0.45;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+/* =========================================
+   CONTENT
+========================================= */
+
+.engine-card h4{
+  margin:0 0 10px;
+  font-size:.66rem;
+  font-weight:900;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:#6b7280;
 }
 
-/* ===============================
-   MEMORY TEXT
-================================ */
-.memory-text {
-  font-size: 0.85rem;
-  line-height: 1.45;
-  opacity: 0.85;
-  font-style: italic;
+.engine-card strong{
+  font-size:1.7rem;
+  font-weight:950;
+  letter-spacing:-1px;
+  line-height:1.25;
 }
 
-/* ===============================
+/* value colors */
+
+.engine-card strong.ok{
+  color:#22c55e;
+}
+
+.engine-card strong.warn{
+  color:#facc15;
+}
+
+.engine-card strong.danger{
+  color:#ef4444;
+}
+
+.engine-card p{
+  margin:0;
+  color:#f3f4f6;
+}
+
+/* subtext */
+
+.engine-card small{
+  margin-top:8px;
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  color:#6b7280;
+}
+
+/* =========================================
+   MEMORY
+========================================= */
+
+.memory-text{
+  font-size:.92rem;
+  line-height:1.55;
+  font-style:italic;
+  color:#d1d5db;
+}
+
+/* =========================================
    RESPONSIVE
-================================ */
-@media (max-width: 1200px) {
-  .engine-row {
-    grid-template-columns: repeat(2, 1fr);
+========================================= */
+
+@media(max-width:1200px){
+
+  .engine-row{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  .engine-system-banner {
-    grid-column: span 2;
+  .engine-system-banner{
+    grid-column:span 2;
   }
 
-  .engine-card.neutral {
-    grid-column: span 2;
+  .engine-card.neutral{
+    grid-column:span 2;
+  }
+}
+
+@media(max-width:768px){
+
+  .engine-row{
+    grid-template-columns:1fr;
+    padding:16px;
+  }
+
+  .engine-system-banner{
+    grid-column:span 1;
+    flex-wrap:wrap;
+  }
+
+  .engine-card.neutral{
+    grid-column:span 1;
+  }
+
+  .engine-card strong{
+    font-size:1.4rem;
   }
 }

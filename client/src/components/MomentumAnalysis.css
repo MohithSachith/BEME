@@ -1,0 +1,118 @@
+/* =========================================
+   MomentumAnalysis.css
+========================================= */
+
+.momentum-card{
+  padding:24px;
+  border-radius:26px;
+
+  background:
+    linear-gradient(180deg,#0f0f0f,#171717);
+
+  border:1px solid rgba(255,255,255,.05);
+
+  box-shadow:
+    0 24px 55px rgba(0,0,0,.42);
+
+  transition:.25s ease;
+}
+
+.momentum-card:hover{
+  transform:translateY(-4px);
+}
+
+/* Header */
+
+.momentum-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+
+.momentum-top h4{
+  margin:0;
+  color:#fff;
+  font-size:1rem;
+  font-weight:950;
+}
+
+.momentum-top span{
+  font-size:.72rem;
+  color:#64748b;
+  font-weight:800;
+}
+
+/* Main status */
+
+.momentum-status{
+  font-size:2rem;
+  font-weight:950;
+  margin-bottom:8px;
+}
+
+/* Score */
+
+.momentum-score{
+  font-size:1rem;
+  font-weight:800;
+  margin-bottom:14px;
+  color:#cbd5e1;
+}
+
+/* Bottom */
+
+.momentum-card small{
+  display:block;
+  color:#94a3b8;
+  font-size:.78rem;
+  margin-bottom:14px;
+}
+
+.momentum-quote{
+  margin:0;
+  color:#64748b;
+  font-size:.74rem;
+  font-style:italic;
+}
+
+/* States */
+
+.momentum-card.up{
+  border-top:4px solid #22c55e;
+}
+
+.momentum-card.down{
+  border-top:4px solid #ef4444;
+}
+
+.momentum-card.stable{
+  border-top:4px solid #facc15;
+}
+
+.momentum-status.up{
+  color:#22c55e;
+}
+
+.momentum-status.down{
+  color:#ef4444;
+}
+
+.momentum-status.stable{
+  color:#facc15;
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+  .momentum-status{
+    font-size:1.5rem;
+  }
+
+  .momentum-top{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+  }
+}

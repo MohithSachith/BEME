@@ -1,102 +1,228 @@
-const BemeTask = require("./beme.model");
-const BemeJournal = require("./bemeJournal.model");
+// backend/modules/bemepro/beme.controller.js
+// BEME.PRO v4 — Named controller functions
 
-// CREATE BEME.PRO TASK
-exports.createTask = async (req, res) => {
+"use strict";
+
+const BemeCommitment = require("./beme.model");
+
+/* ──────────────────────────────────────────────
+   DATE HELPERS — local time, never UTC
+────────────────────────────────────────────── */
+function localDateKey(d = new Date()) {
+  return [
+    d.getFullYear(),
+    String(d.getMonth() + 1).padStart(2, "0"),
+    String(d.getDate()).padStart(2, "0"),
+  ].join("-");
+}
+
+function localMonthKey(d = new Date()) {
+  return localDateKey(d).slice(0, 7);
+}
+
+/* ──────────────────────────────────────────────
+   RESPONSE HELPERS
+────────────────────────────────────────────── */
+const ok   = (res, data, status = 200) => res.status(status).json(data);
+const fail = (res, message, status = 400) =>
+  res.status(status).json({ error: message });
+
+/* ──────────────────────────────────────────────
+   GET /commitments
+────────────────────────────────────────────── */
+exports.getCommitments = async (req, res) => {
   try {
-    const { title, reason, startTime, windowMinutes, difficulty } = req.body;
+    const docs = await BemeCommitment.find({}).sort({ createdAt: -1 }).lean();
+    ok(res, docs);
+  } catch (err) {
+    console.error("[BemePro] getCommitments:", err.message);
+    fail(res, err.message, 500);
+  }
+};
 
-    if (!title || !reason || !startTime || !windowMinutes) {
-      return res.status(400).json({ message: "All fields required" });
-    }
-
-    const start = new Date(startTime);
-    const end = new Date(start.getTime() + windowMinutes * 60000 - 5 * 60000);
-
-    const task = await BemeTask.create({
-      userId: req.user.id,
+/* ──────────────────────────────────────────────
+   POST /commitments
+────────────────────────────────────────────── */
+exports.createCommitment = async (req, res) => {
+  try {
+    const {
       title,
-      reason,
-      startTime: start,
-      endTime: end,
-      windowMinutes,
-      difficulty,
+      reason        = "",
+      alarmTime,
+      windowMinutes = 15,
+      musicUrl      = "",
+      musicTitle    = "",
+      musicArtwork  = "",
+      fromMonth,
+      toMonth,
+    } = req.body;
+
+    if (!title || !title.trim()) {
+      return fail(res, "title is required");
+    }
+    if (!alarmTime || !/^\d{2}:\d{2}$/.test(alarmTime)) {
+      return fail(res, "alarmTime must be in HH:MM format (e.g. 06:30)");
+    }
+
+    const currentMonth = localMonthKey();
+
+    // Use new + save instead of create() to ensure pre-save hooks
+    // fire reliably across all Mongoose v6/v7/v8 versions.
+    const doc = new BemeCommitment({
+      title:         title.trim(),
+      reason:        (reason || "").trim(),
+      alarmTime,
+      windowMinutes: Number(windowMinutes) || 15,
+      musicUrl:      (musicUrl     || "").trim(),
+      musicTitle:    (musicTitle   || "").trim(),
+      musicArtwork:  (musicArtwork || "").trim(),
+      fromMonth:     fromMonth || currentMonth,
+      toMonth:       toMonth   || currentMonth,
+      attendance:    {},
     });
 
-    res.status(201).json(task);
+    await doc.save();
+
+    ok(res, doc, 201);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("[BemePro] createCommitment:", err.message);
+    if (err.name === "ValidationError") {
+      const messages = Object.values(err.errors).map((e) => e.message);
+      return fail(res, messages.join("; "), 400);
+    }
+    fail(res, err.message, 500);
   }
 };
 
-// GET ACTIVE TASK (AUTO FAIL CHECK)
-exports.getActiveTask = async (req, res) => {
+/* ──────────────────────────────────────────────
+   DELETE /commitments/:id
+────────────────────────────────────────────── */
+exports.deleteCommitment = async (req, res) => {
   try {
-    const task = await BemeTask.findOne({
-      userId: req.user.id,
-      status: "pending",
-    });
-
-    if (!task) return res.json(null);
-
-    if (new Date() > task.endTime) {
-      task.status = "failed";
-      await task.save();
-    }
-
-    res.json(task);
+    const doc = await BemeCommitment.findByIdAndDelete(req.params.id);
+    if (!doc) return fail(res, "Commitment not found", 404);
+    ok(res, { message: "Deleted successfully", id: req.params.id });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("[BemePro] deleteCommitment:", err.message);
+    if (err.name === "CastError") return fail(res, "Invalid ID", 404);
+    fail(res, err.message, 500);
   }
 };
 
-// COMPLETE TASK (STRICT)
-exports.completeTask = async (req, res) => {
+/* ──────────────────────────────────────────────
+   POST /mark-present
+────────────────────────────────────────────── */
+exports.markPresent = async (req, res) => {
   try {
-    const task = await BemeTask.findById(req.params.id);
+    const { commitmentId, reflectionText = "", emotionScore = 5 } = req.body;
 
-    if (!task) return res.status(404).json({ message: "Task not found" });
-    if (task.userId.toString() !== req.user.id)
-      return res.status(403).json({ message: "Unauthorized" });
-
-    const now = new Date();
-
-    if (now < task.startTime || now > task.endTime) {
-      return res.status(400).json({ message: "Outside time window" });
+    if (!commitmentId) return fail(res, "commitmentId is required");
+    if (!reflectionText.trim()) {
+      return fail(res, "reflectionText is required when marking present");
     }
 
-    if (task.status !== "pending") {
-      return res.status(400).json({ message: "Task already locked" });
-    }
+    const doc = await BemeCommitment.findById(commitmentId);
+    if (!doc) return fail(res, "Commitment not found", 404);
 
-    task.status = "completed";
-    task.completedAt = now;
-    await task.save();
+    const key = localDateKey();
 
-    res.json(task);
+    const entry = {
+      status:   "present",
+      loggedAt: new Date(),
+      reflection: {
+        text:         reflectionText.trim(),
+        emotionScore: Math.min(10, Math.max(1, Number(emotionScore) || 5)),
+      },
+    };
+
+    await BemeCommitment.findByIdAndUpdate(
+      commitmentId,
+      { $set: { [`attendance.${key}`]: entry } },
+      { runValidators: false }
+    );
+
+    const fresh = await BemeCommitment.findById(commitmentId);
+    await fresh.recalcStreaks();
+
+    ok(res, {
+      message:       "Marked present",
+      date:          key,
+      currentStreak: fresh.currentStreak,
+      longestStreak: fresh.longestStreak,
+    });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("[BemePro] markPresent:", err.message);
+    if (err.name === "CastError") return fail(res, "Invalid ID", 404);
+    fail(res, err.message, 500);
   }
 };
 
-// SAVE JOURNAL (ONLY AFTER COMPLETION)
-exports.saveJournal = async (req, res) => {
+/* ──────────────────────────────────────────────
+   POST /mark-absent
+────────────────────────────────────────────── */
+exports.markAbsent = async (req, res) => {
   try {
-    const { taskId, reflectionText, emotionScore } = req.body;
+    const { commitmentId, date } = req.body;
 
-    const task = await BemeTask.findById(taskId);
-    if (!task || task.status !== "completed") {
-      return res.status(400).json({ message: "Task not completed" });
+    if (!commitmentId) return fail(res, "commitmentId is required");
+
+    const doc = await BemeCommitment.findById(commitmentId);
+    if (!doc) return fail(res, "Commitment not found", 404);
+
+    const key = date || localDateKey();
+
+    // Never overwrite a present entry
+    if (doc.attendance?.[key]?.status === "present") {
+      return ok(res, { message: "Already marked present — skipped", date: key });
     }
 
-    const journal = await BemeJournal.create({
-      taskId,
-      reflectionText,
-      emotionScore,
-    });
+    await BemeCommitment.findByIdAndUpdate(
+      commitmentId,
+      {
+        $set: {
+          [`attendance.${key}`]: {
+            status:     "absent",
+            loggedAt:   new Date(),
+            reflection: null,
+          },
+        },
+      },
+      { runValidators: false }
+    );
 
-    res.status(201).json(journal);
+    const fresh = await BemeCommitment.findById(commitmentId);
+    await fresh.recalcStreaks();
+
+    ok(res, { message: "Marked absent", date: key });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("[BemePro] markAbsent:", err.message);
+    if (err.name === "CastError") return fail(res, "Invalid ID", 404);
+    fail(res, err.message, 500);
+  }
+};
+
+/* ──────────────────────────────────────────────
+   GET /journals/:id
+────────────────────────────────────────────── */
+exports.getJournals = async (req, res) => {
+  try {
+    const doc = await BemeCommitment.findById(req.params.id);
+    if (!doc) return fail(res, "Commitment not found", 404);
+
+    const reflections = Object.entries(doc.attendance || {})
+      .filter(([, e]) => e?.status === "present" && e?.reflection?.text)
+      .map(([date, e]) => ({
+        date,
+        text:         e.reflection.text,
+        emotionScore: e.reflection.emotionScore,
+        loggedAt:     e.loggedAt,
+      }))
+      .sort((a, b) => b.date.localeCompare(a.date));
+
+    ok(res, reflections);
+  } catch (err) {
+    console.error("[BemePro] getJournals:", err.message);
+    if (err.name === "CastError") return fail(res, "Invalid ID", 404);
+    fail(res, err.message, 500);
   }
 };

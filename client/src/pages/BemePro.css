@@ -1,0 +1,692 @@
+/* ==========================================
+   BEME.PRO v4 ULTRA PREMIUM UI
+   BLACK + MULTI VIBRANT COLORS
+   Full Production-Ready Stylesheet
+========================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Core Dark Theme */
+  --bg: #050505;
+  --bg2: #0a0a0a;
+  --surface: #111111;
+  --surface2: #1a1a1a;
+  --card: #111111;
+  --card2: #1a1a1a;
+  --line: #282828;
+  --border: rgba(255,255,255,0.06);
+
+  /* Text */
+  --text: #ffffff;
+  --text2: #e5e5e5;
+  --muted: #a1a1aa;
+  --muted2: #71717a;
+
+  /* Vibrant Multi-Color Palette */
+  --primary: #00d4ff;
+  --primary2: #0099ff;
+  --accent: #c026d3;
+  --green: #22ff88;
+  --green2: #00cc66;
+  --red: #ff3366;
+  --red2: #cc0033;
+  --yellow: #ffd700;
+  --yellow2: #ffaa00;
+  --purple: #c026d3;
+  --purple2: #8b22ff;
+  --orange: #ff6b00;
+  --pink: #ff2e9a;
+  --cyan: #00f0ff;
+
+  /* Effects */
+  --shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+  --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --glow: 0 0 25px;
+  --glow-lg: 0 0 40px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================
+   GLOBAL TYPOGRAPHY & BASE
+========================================== */
+
+html { scroll-behavior: smooth; }
+
+body {
+  background:
+    radial-gradient(circle at 20% 25%, rgba(0, 212, 255, 0.13), transparent 45%),
+    radial-gradient(circle at 80% 65%, rgba(192, 38, 211, 0.11), transparent 50%),
+    radial-gradient(circle at 45% 85%, rgba(34, 255, 136, 0.09), transparent 40%),
+    linear-gradient(180deg, var(--bg), var(--bg2) 80%);
+  color: var(--text);
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-feature-settings: "kern" 1, "tnum" 1;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 950;
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+}
+
+h1 { font-size: 3.2rem; }
+h2 { font-size: 2.1rem; }
+h3 { font-size: 1.35rem; }
+
+p { color: var(--muted); }
+
+/* ==========================================
+   WRAPPER & LAYOUT
+========================================== */
+
+.bemepro-wrapper {
+  min-height: 100vh;
+  padding: 28px;
+  max-width: 1480px;
+  margin: 0 auto;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.bemepro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+}
+
+.bemepro-back {
+  border: none;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 16px;
+  font-weight: 800;
+  color: var(--text);
+  background: rgba(20, 20, 20, 0.9);
+  border: 1px solid var(--line);
+  transition: var(--transition);
+}
+
+.bemepro-back:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: var(--glow) var(--primary);
+}
+
+.bemepro-brand { flex: 1; text-align: center; }
+
+.bemepro-brand h1 {
+  background: linear-gradient(90deg, #fff, var(--primary), #c026d3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 3.4rem;
+  letter-spacing: -3px;
+}
+
+.bemepro-brand span {
+  color: var(--primary);
+  text-shadow: 0 0 35px rgba(0, 212, 255, 0.6);
+}
+
+.bemepro-tagline {
+  margin-top: 6px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.bemepro-new {
+  border: none;
+  cursor: pointer;
+  padding: 14px 26px;
+  border-radius: 18px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.02rem;
+  background: linear-gradient(135deg, var(--primary), var(--primary2), var(--cyan));
+  box-shadow: 0 18px 40px rgba(0, 212, 255, 0.4);
+  transition: var(--transition);
+}
+
+.bemepro-new:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 25px 50px rgba(0, 212, 255, 0.55);
+}
+
+/* ==========================================
+   STATS GRID
+========================================== */
+
+.bemepro-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  border-radius: 26px;
+  padding: 26px 22px;
+  color: #fff;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 80px;
+  height: 80px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.stat-card:hover::before { opacity: 1; transform: scale(2); }
+.stat-card:hover { transform: translateY(-8px); }
+
+.stat-card:nth-child(1) { background: linear-gradient(135deg, #00d4ff, #0099ff); }
+.stat-card:nth-child(2) { background: linear-gradient(135deg, #22ff88, #00cc66); }
+.stat-card:nth-child(3) { background: linear-gradient(135deg, #ff3366, #cc0033); }
+.stat-card:nth-child(4) { background: linear-gradient(135deg, #ffd700, #ffaa00); color: #111111; }
+
+.stat-card small {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+
+.stat-card h2 {
+  font-size: 2.45rem;
+  font-weight: 950;
+  line-height: 1;
+}
+
+/* ==========================================
+   PANELS
+========================================== */
+
+.bemepro-panel {
+  background: linear-gradient(180deg, var(--card), var(--card2));
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+  margin-bottom: 28px;
+}
+
+.panel-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+}
+
+.panel-title h3 { font-size: 1.3rem; font-weight: 900; }
+
+.panel-title input {
+  background: #0c0c0c;
+  border: 1px solid var(--line);
+  color: var(--text);
+  padding: 12px 16px;
+  border-radius: 14px;
+  outline: none;
+  min-width: 260px;
+}
+
+.panel-title input:focus {
+  border-color: var(--primary);
+  box-shadow: var(--glow) var(--primary);
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+}
+
+.beme-table {
+  width: 100%;
+  min-width: 960px;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.beme-table th {
+  padding: 14px 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.beme-table td {
+  padding: 16px 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.beme-table tbody tr {
+  background: #0f0f0f;
+  transition: var(--transition);
+}
+
+.beme-table tbody tr:hover {
+  background: #1c1c1c;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+.beme-table tbody tr td:first-child { border-radius: 18px 0 0 18px; }
+.beme-table tbody tr td:last-child { border-radius: 0 18px 18px 0; }
+
+.col-habit {
+  min-width: 260px;
+  text-align: left !important;
+  padding-left: 20px !important;
+}
+
+.col-habit div { font-weight: 900; margin-bottom: 4px; }
+.habit-sub { color: var(--muted); font-size: 0.76rem; }
+
+/* Status Chips */
+.chip {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  margin: auto;
+  font-weight: 900;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.present { background: var(--green); color: #000; box-shadow: var(--glow-lg) var(--green); }
+.absent  { background: var(--red);   color: #fff; box-shadow: var(--glow-lg) var(--red);   }
+.pending { background: #222;         color: var(--muted); }
+
+/* ==========================================
+   MODAL BASE
+========================================== */
+
+.bp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+}
+
+.bp-form {
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: linear-gradient(180deg, #111111, #1f1f1f);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 40px 90px rgba(0, 0, 0, 0.75);
+}
+
+.bp-form h2 { margin-bottom: 20px; font-size: 1.45rem; }
+
+.bp-form label {
+  display: block;
+  margin: 16px 0 8px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.bp-form input,
+.bp-form textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  outline: none;
+  background: #0c0c0c;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.bp-form input:focus,
+.bp-form textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.15);
+}
+
+.bp-form textarea { min-height: 130px; resize: vertical; }
+
+.bp-form-btns { margin-top: 24px; display: flex; gap: 14px; }
+
+.bp-cancel,
+.bp-commit {
+  flex: 1;
+  padding: 15px;
+  border-radius: 16px;
+  font-weight: 900;
+  font-size: 1.05rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.bp-cancel {
+  background: linear-gradient(135deg, var(--red), var(--red2));
+  color: #fff;
+}
+
+.bp-cancel:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,51,102,0.4); }
+
+.bp-commit {
+  background: linear-gradient(135deg, var(--green), var(--green2));
+  color: #000;
+}
+
+.bp-commit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(34,255,136,0.4); }
+
+/* ==========================================
+   MUSIC SEARCH (Create Modal)
+========================================== */
+
+.music-results {
+  max-height: 300px;
+  overflow-y: auto;
+  background: #131e2b;
+  padding: 10px;
+  border-radius: 14px;
+  margin: 12px 0;
+  border: 1px solid #1e3448;
+}
+
+.music-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  margin: 6px 0;
+  background: #1e2d3e;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+  user-select: none;
+}
+
+.music-item:hover,
+.music-item.selected {
+  background: #22d3ee;
+  color: #000;
+  transform: translateX(4px);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
+}
+
+.music-item.selected .music-info small { color: rgba(0,0,0,0.6); }
+
+.artwork {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  margin-right: 14px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  flex-shrink: 0;
+}
+
+.music-info { flex: 1; line-height: 1.3; overflow: hidden; }
+.music-info strong { font-size: 0.9rem; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.preview-btn {
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.preview-btn:hover { background: #000; transform: scale(1.05); }
+
+/* Selected Song Banner (in Create modal) */
+.selected-song-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(0, 212, 255, 0.08);
+  border: 1px solid rgba(0, 212, 255, 0.25);
+  border-radius: 14px;
+  margin-top: 12px;
+}
+
+.selected-artwork {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   ALARM MODAL — iTunes-powered
+========================================== */
+
+.alarm-overlay {
+  background: rgba(0, 0, 0, 0.88);
+}
+
+.alarm-form {
+  border-color: rgba(255, 255, 100, 0.2) !important;
+  box-shadow: 0 0 80px rgba(255, 200, 0, 0.15), 0 40px 90px rgba(0, 0, 0, 0.75) !important;
+}
+
+/* Pulsing ring around alarm icon */
+.alarm-ring-container {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alarm-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 200, 0, 0.6);
+  animation: alarm-pulse 1.4s ease-out infinite;
+}
+
+.alarm-ring--delay {
+  animation-delay: 0.7s;
+}
+
+@keyframes alarm-pulse {
+  0%   { transform: scale(0.7); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+.alarm-icon {
+  font-size: 2.4rem;
+  position: relative;
+  z-index: 1;
+  animation: alarm-shake 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes alarm-shake {
+  from { transform: rotate(-12deg); }
+  to   { transform: rotate(12deg); }
+}
+
+.alarm-title {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 950;
+  letter-spacing: -1px;
+  background: linear-gradient(90deg, #ffd700, #ff6b00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+/* iTunes music bar inside alarm modal */
+.alarm-music-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(34, 211, 238, 0.07);
+  border: 1px solid rgba(34, 211, 238, 0.2);
+  border-radius: 16px;
+  margin-top: 16px;
+}
+
+.alarm-artwork {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+.alarm-music-info { flex: 1; overflow: hidden; }
+.alarm-music-info p { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.alarm-music-btn {
+  border: none;
+  cursor: pointer;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-weight: 900;
+  font-size: 0.85rem;
+  background: rgba(34, 211, 238, 0.15);
+  color: #22d3ee;
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+
+.alarm-music-btn.playing {
+  background: rgba(34, 211, 238, 0.25);
+  box-shadow: 0 0 16px rgba(34, 211, 238, 0.3);
+}
+
+.alarm-music-btn:hover {
+  background: #22d3ee;
+  color: #000;
+}
+
+/* ==========================================
+   SCROLLBAR
+========================================== */
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--primary), var(--purple));
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
+
+/* ==========================================
+   MISC
+========================================== */
+
+.empty-note {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted2);
+  font-size: 1.1rem;
+}
+
+.mini-del {
+  border: none;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  background: rgba(239, 68, 68, 0.12);
+  color: #fca5a5;
+  margin-left: 12px;
+  transition: var(--transition-fast);
+}
+
+.mini-del:hover { background: rgba(239, 68, 68, 0.28); }
+
+input[type="range"] { accent-color: var(--primary); width: 100%; }
+
+input:focus, button:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 1280px) {
+  .bemepro-stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .bemepro-wrapper { padding: 16px; }
+  .bemepro-header { flex-direction: column; align-items: flex-start; }
+  .bemepro-brand { text-align: left; }
+  .bemepro-brand h1 { font-size: 2.5rem; }
+  .bemepro-stats { grid-template-columns: 1fr; }
+  .panel-title { flex-direction: column; align-items: flex-start; }
+  .col-habit { min-width: 200px; }
+  .bp-form { padding: 24px; }
+  .music-results { max-height: 240px; }
+  .alarm-ring-container { width: 64px; height: 64px; }
+  .alarm-title { font-size: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+  .bemepro-brand h1 { font-size: 2.1rem; }
+}
